@@ -1,0 +1,205 @@
+.app {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 0.75rem;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.urlInput {
+  flex: 1;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.95rem;
+  border: 1px solid #d4d4d4;
+  font-family: inherit;
+  background: #fff;
+  color: #111;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.urlInput:focus {
+  border-color: #2563eb;
+}
+
+.urlInput:disabled {
+  background: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.primary {
+  padding: 0.625rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.primary:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.primary:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
+}
+
+.secondary {
+  padding: 0.375rem 0.875rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: transparent;
+  color: #2563eb;
+  border: 1px solid #2563eb;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.secondary:hover:not(:disabled) {
+  background: #eff6ff;
+}
+
+.secondary:disabled {
+  color: #999;
+  border-color: #d4d4d4;
+  cursor: not-allowed;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #555;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  accent-color: #2563eb;
+  cursor: pointer;
+  margin: 0;
+}
+
+.toggle:has(input:disabled) {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.status {
+  margin: 0;
+  font-size: 0.85rem;
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  color: #666;
+}
+
+.status[data-kind="scraping"] {
+  color: #b45309;
+}
+
+.status[data-kind="done"] {
+  color: #15803d;
+}
+
+.status[data-kind="error"] {
+  color: #b91c1c;
+}
+
+.outputSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.outputHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #555;
+  font-weight: 500;
+}
+
+.output {
+  margin: 0;
+  padding: 1rem;
+  background: #fafafa;
+  border: 1px solid #e5e5e5;
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: #1a1a1a;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+@media (prefers-color-scheme: dark) {
+  .app {
+    color: #e5e5e5;
+    background: #0a0a0a;
+  }
+
+  .header {
+    border-bottom-color: #2a2a2a;
+  }
+
+  .toggle,
+  .outputHeader {
+    color: #999;
+  }
+
+  .urlInput {
+    background: #171717;
+    border-color: #2a2a2a;
+    color: #e5e5e5;
+  }
+
+  .urlInput:focus {
+    border-color: #3b82f6;
+  }
+
+  .urlInput:disabled {
+    background: #0a0a0a;
+  }
+
+  .secondary:hover:not(:disabled) {
+    background: #1e3a8a40;
+  }
+
+  .output {
+    background: #171717;
+    border-color: #2a2a2a;
+    color: #e5e5e5;
+  }
+}

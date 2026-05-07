@@ -1,0 +1,3 @@
+playwright>=1.59
+fastapi>=0.115
+uvicorn[standard]>=0.30

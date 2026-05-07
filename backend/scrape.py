@@ -2,27 +2,30 @@
 import asyncio
 import sys
 from pathlib import Path
+
 from playwright.async_api import async_playwright
 
 SESSION_FILE = Path(__file__).parent / "linkedin_session.json"
 
 
-async def scrape(url: str) -> str:
+async def scrape(url: str, headless: bool = True) -> str:
     if not SESSION_FILE.exists():
-        raise SystemExit(
+        raise FileNotFoundError(
             f"No session at {SESSION_FILE}. Run: python create_session.py"
         )
 
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)
-        context = await browser.new_context(storage_state=str(SESSION_FILE))
+        browser = await p.chromium.launch(headless=headless)
+        context = await browser.new_context(
+            storage_state=str(SESSION_FILE),
+            viewport={"width": 1280, "height": 800},
+        )
         page = await context.new_page()
 
         await page.goto(url, wait_until="domcontentloaded")
         await page.wait_for_selector("main", timeout=15_000)
         await page.wait_for_timeout(2_500)
 
-        # LinkedIn lazy-loads experience/education/etc only after scrolling
         for _ in range(6):
             await page.evaluate("window.scrollBy(0, 800)")
             await page.wait_for_timeout(400)
@@ -34,15 +37,18 @@ async def scrape(url: str) -> str:
         return text
 
 
-def main():
+def _cli():
     url = (
         sys.argv[1]
         if len(sys.argv) > 1
         else "https://www.linkedin.com/in/williamhgates/"
     )
     print(f"Scraping: {url}\n" + "=" * 60)
-    print(asyncio.run(scrape(url)))
+    try:
+        print(asyncio.run(scrape(url, headless=False)))
+    except FileNotFoundError as e:
+        sys.exit(str(e))
 
 
 if __name__ == "__main__":
-    main()
+    _cli()

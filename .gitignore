@@ -2,5 +2,13 @@
 __pycache__/
 *.pyc
 linkedin_session.json
+backend/linkedin_session.json
 debug_*.png
 .env
+
+# Tauri/Node (desktop/ has its own .gitignore but include defenses here too)
+node_modules/
+desktop/node_modules/
+desktop/dist/
+desktop/src-tauri/target/
+desktop/src-tauri/gen/
